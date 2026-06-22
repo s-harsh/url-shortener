@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/urlshortener_dev}
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:postgres}
+
+  jpa:
+    show-sql: true
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+
+  flyway:
+    baseline-on-migrate: true
+
+app:
+  base-url: ${APP_BASE_URL:http://localhost:8080}
+
+logging:
+  level:
+    com.urlshortener: DEBUG
+    org.springframework.web: DEBUG
