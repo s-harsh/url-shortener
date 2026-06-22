@@ -148,33 +148,6 @@ Full interactive docs at `/swagger-ui.html`.
 
 ---
 
-## 🌍 Deploy Free in 5 Minutes
-
-### Railway (Recommended ⭐)
-
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template)
-
-1. Fork this repo
-2. [railway.app](https://railway.app) → **New Project → Deploy from GitHub Repo**
-3. Add **PostgreSQL** plugin + **Redis** plugin
-4. Set environment variables:
-```env
-SPRING_PROFILES_ACTIVE=prod
-DATABASE_URL=${{Postgres.DATABASE_URL}}
-DATABASE_USERNAME=${{Postgres.PGUSER}}
-DATABASE_PASSWORD=${{Postgres.PGPASSWORD}}
-REDIS_HOST=${{Redis.REDIS_HOST}}
-REDIS_PORT=${{Redis.REDIS_PORT}}
-REDIS_PASSWORD=${{Redis.REDIS_PASSWORD}}
-REDIS_SSL=false
-APP_BASE_URL=https://YOUR-APP.up.railway.app
-```
-5. Railway detects the Dockerfile and deploys. **Done!**
-
-> See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for Render, Fly.io, and VPS guides.
-
----
-
 ## 📁 Project Structure
 
 ```
