@@ -1,15 +1,19 @@
 package com.urlshortener.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.urlshortener.config.AppProperties;
 import com.urlshortener.dto.request.ShortenUrlRequest;
 import com.urlshortener.dto.response.ShortenUrlResponse;
 import com.urlshortener.exception.GlobalExceptionHandler;
 import com.urlshortener.exception.UrlNotFoundException;
+import com.urlshortener.filter.RateLimitFilter;
 import com.urlshortener.service.UrlService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -21,13 +25,20 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(UrlController.class)
+@WebMvcTest(
+        controllers = UrlController.class,
+        excludeFilters = @ComponentScan.Filter(
+                type = FilterType.ASSIGNABLE_TYPE,
+                classes = RateLimitFilter.class
+        )
+)
 @Import(GlobalExceptionHandler.class)
 class UrlControllerTest {
 
     @Autowired private MockMvc mockMvc;
     @Autowired private ObjectMapper objectMapper;
     @MockBean private UrlService urlService;
+    @MockBean private AppProperties appProperties;
 
     @Test
     void POST_shorten_valid_request_returns_201() throws Exception {
